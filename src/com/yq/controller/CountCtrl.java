@@ -8,6 +8,7 @@ import net.sf.json.JSONObject;
 import org.python.core.PyFunction;
 import org.python.core.PyInteger;
 import org.python.core.PyObject;
+import org.python.core.PyString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -189,24 +190,27 @@ public class CountCtrl extends StringUtil {
 	 */
 	@RequestMapping(value = "/main/dcuTest.html")
 	public ModelAndView dcuTest(HttpSession session) {
-		String oppen_id = getOppen_id(session);
-		Count count = new Count();
+		String result = python();;
 		ModelAndView ml = new ModelAndView();
+		ml.addObject("result", result);
 		ml.setViewName("main/dcu/countAll");
-		python();
 		return ml;
 	}
 
 	/**
 	 * python执行类
 	 */
-	public void python() {
+	public String python() {
+		String test = "Test";
+		String result = "";
 		PythonInterpreter interpreter = new PythonInterpreter();
 		interpreter = new PythonInterpreter();
 		interpreter.execfile("/Users/john/Desktop/test.py");
-		PyFunction function = (PyFunction) interpreter.get("fib", PyFunction.class);
-		PyObject o = function.__call__(new PyInteger(8));
+		PyFunction function = (PyFunction) interpreter.get("Test", PyFunction.class);
+		PyObject o = function.__call__(new PyString(test));
 		System.out.println("====================调用python脚本并读取结果为:" + o.toString() + "====================");
+		result = "====================调用python脚本并读取结果为:" + o.toString() + "====================";
+		return result;
 	}
 }
 
