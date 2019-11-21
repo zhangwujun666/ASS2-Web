@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="dcu">
+    <output-path>$USER_HOME$/eclipse/apache-tomcat-7.0.68/webapps</output-path>
+    <root id="archive" name="dcu.war">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ASS2-Web" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="lib" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="ASS2-Web/web/Web" />
+    </root>
+  </artifact>
+</component>
