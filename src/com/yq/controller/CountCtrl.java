@@ -159,7 +159,7 @@ public class CountCtrl extends StringUtil {
 	}
 
 	/**
-	 * 订单分析计数
+	 * 分析计数
 	 * @return
 	 */
     @ResponseBody
@@ -203,13 +203,42 @@ public class CountCtrl extends StringUtil {
 	public String python() {
 		String test = "Test";
 		String result = "";
+		String dir = System.getProperty("user.dir");
+		String filePath = dir + "/test.py";
 		PythonInterpreter interpreter = new PythonInterpreter();
 		interpreter = new PythonInterpreter();
-		interpreter.execfile("/Users/john/Desktop/test.py");
+		interpreter.execfile(filePath);
 		PyFunction function = (PyFunction) interpreter.get("Test", PyFunction.class);
 		PyObject o = function.__call__(new PyString(test));
 		System.out.println("====================调用python脚本并读取结果为:" + o.toString() + "====================");
-		result = "====================调用python脚本并读取结果为:" + o.toString() + "====================";
+		result = "Testing python file and get the result is :" + o.toString();
+		return result;
+	}
+
+	/**
+	 * Python数据处理累类
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/main/pyComputing.html")
+	public Object pyComputing() {
+		List<Map<String, String>> list = countService.countDataAll();
+		Map<String, String> data = new HashMap<>();
+		List<Map<String, String>> res  = new ArrayList<>();
+		for(int i = 0; i < list.size(); i++){
+			data = list.get(i);
+			String order_time = data.get("order_time");
+			String count = String.valueOf(data.get("count"));
+			Map<String, String> dataMap = new HashMap<>();
+			dataMap.put("order_time", order_time);
+			dataMap.put("count", count);
+			res.add(dataMap);
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("countData", res);
+		String json = new Gson().toJson(map);
+		JSONObject jsonObject = JSONObject.fromObject(json);
+		String result = jsonObject.toString();
 		return result;
 	}
 }

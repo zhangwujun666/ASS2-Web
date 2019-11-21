@@ -104,20 +104,20 @@
                                     type : 'category',
                                     boundaryGap : false,
                                     data : order_time,
-									name : '交易时间'
+									name : 'Time'
                                 }
                             ],
                             yAxis : [
                                 {
                                     type : 'value',
-                                    name : '有效交易量'
+                                    name : 'Subtotal'
                                 }
                             ],
                             series : [
                                 {
-                                    name:'有效交易量',
+                                    name:'Subtotal',
                                     type:'line',
-                                    stack: '总量',
+                                    stack: 'Total',
                                     data: counts
                                 }
                             ]
