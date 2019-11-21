@@ -3,22 +3,22 @@ package com.yq.controller;
 import com.google.gson.Gson;
 import com.yq.entity.*;
 import com.yq.service.*;
-import com.yq.util.PageUtil;
 import com.yq.util.StringUtil;
-import com.yq.util.userPointUtil;
 import net.sf.json.JSONObject;
+import org.python.core.PyFunction;
+import org.python.core.PyInteger;
+import org.python.core.PyObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import org.python.util.PythonInterpreter;
 
 @Controller
 @RequestMapping
@@ -193,6 +193,20 @@ public class CountCtrl extends StringUtil {
 		Count count = new Count();
 		ModelAndView ml = new ModelAndView();
 		ml.setViewName("main/dcu/countAll");
+		python();
 		return ml;
 	}
+
+	/**
+	 * python执行类
+	 */
+	public void python() {
+		PythonInterpreter interpreter = new PythonInterpreter();
+		interpreter = new PythonInterpreter();
+		interpreter.execfile("/Users/john/Desktop/test.py");
+		PyFunction function = (PyFunction) interpreter.get("fib", PyFunction.class);
+		PyObject o = function.__call__(new PyInteger(8));
+		System.out.println("====================调用python脚本并读取结果为:" + o.toString() + "====================");
+	}
 }
+
