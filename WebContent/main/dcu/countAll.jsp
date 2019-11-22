@@ -88,6 +88,9 @@
                             tooltip : {
                                 trigger: 'axis'
                             },
+							legend: {
+								data:['data']
+							},
                             toolbox: {
                                 show : true,
                                 feature : {

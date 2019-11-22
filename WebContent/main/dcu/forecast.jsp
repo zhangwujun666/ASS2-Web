@@ -43,9 +43,10 @@
 <%--			class="Hui-iconfont">&#xe68f;</i></a>--%>
 <%--	</nav>--%>
 <%--	<p style="font-size: 25px; margin-top: 20px; margin-left: 45%;">有效交易统计</p>--%>
-	<div id="main" style="height:400px;"></div>
-	<p>${result}</p>
-	<%--<script type="text/javascript" src="js/echarts.min.js"></script>--%>
+	<div id="main" style="height:800px;"></div>
+<%--	<div id="container" style="height: 500px"></div>--%>
+<%--	<p>${result}</p>--%>
+	<script type="text/javascript" src="js/echarts.min.js"></script>
 	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 	<script src="js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript">
@@ -72,12 +73,14 @@
                     // data:'goods_id='+ goods_id,
                     success:function(rs){
                         var temp = JSON.parse(rs);
-                        var res = temp.countData;
-                        var order_time = new Array();
-                        var counts = new Array();
+                        var res = temp.data;
+                        var test = new Array();
+                        var prediction = new Array();
+                        var index = new Array();
                         for(var i = 0; i < res.length; i++){
-                            order_time.push(res[i]['order_time']);
-                            counts.push(res[i]['count']);
+                            test.push(res[i]['test']);
+                            prediction.push(res[i]['prediction']);
+							index.push(res[i]['index']);
                         }
                         // var dataViews=JSON.stringify(views);
                         // document.getElementById("views").value= dataViews;
@@ -88,6 +91,9 @@
                             tooltip : {
                                 trigger: 'axis'
                             },
+							legend: {
+								data:['Prediction','Test']
+							},
                             toolbox: {
                                 show : true,
                                 feature : {
@@ -103,23 +109,29 @@
                                 {
                                     type : 'category',
                                     boundaryGap : false,
-                                    data : order_time,
+                                    data : index,
 									name : 'Time'
                                 }
                             ],
                             yAxis : [
                                 {
                                     type : 'value',
-                                    name : 'Subtotal'
+                                    name : 'value'
                                 }
                             ],
                             series : [
                                 {
-                                    name:'Subtotal',
+                                    name:'Prediction',
                                     type:'line',
-                                    stack: 'Total',
-                                    data: counts
-                                }
+                                    // stack: 'Total',
+                                    data: prediction
+                                },
+								{
+									name:'Test',
+									type:'line',
+									// stack: 'Total',
+									data: test
+								}
                             ]
                         });
                     }
@@ -129,5 +141,66 @@
             }
         );
 	</script>
+<%--	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>--%>
+<%--	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>--%>
+<%--	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>--%>
+<%--	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>--%>
+<%--	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>--%>
+<%--	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>--%>
+<%--	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>--%>
+<%--	<script type="text/javascript">--%>
+<%--		var dom = document.getElementById("container");--%>
+<%--		var myChart = echarts.init(dom);--%>
+<%--		var app = {};--%>
+<%--		option = null;--%>
+<%--		option = {--%>
+<%--			title: {--%>
+<%--				text: '折线图堆叠'--%>
+<%--			},--%>
+<%--			tooltip: {--%>
+<%--				trigger: 'axis'--%>
+<%--			},--%>
+<%--			legend: {--%>
+<%--				data:['邮件营销','联盟广告']--%>
+<%--			},--%>
+<%--			grid: {--%>
+<%--				left: '3%',--%>
+<%--				right: '4%',--%>
+<%--				bottom: '3%',--%>
+<%--				containLabel: true--%>
+<%--			},--%>
+<%--			toolbox: {--%>
+<%--				feature: {--%>
+<%--					saveAsImage: {}--%>
+<%--				}--%>
+<%--			},--%>
+<%--			xAxis: {--%>
+<%--				type: 'category',--%>
+<%--				boundaryGap: false,--%>
+<%--				data: ['周一','周二','周三','周四','周五','周六','周日']--%>
+<%--			},--%>
+<%--			yAxis: {--%>
+<%--				type: 'value'--%>
+<%--			},--%>
+<%--			series: [--%>
+<%--				{--%>
+<%--					name:'邮件营销',--%>
+<%--					type:'line',--%>
+<%--					stack: '总量',--%>
+<%--					data:[120, 132, 101, 134, 90, 230, 210]--%>
+<%--				},--%>
+<%--				{--%>
+<%--					name:'联盟广告',--%>
+<%--					type:'line',--%>
+<%--					stack: '总量',--%>
+<%--					data:[220, 182, 191, 234, 290, 330, 310]--%>
+<%--				}--%>
+<%--			]--%>
+<%--		};--%>
+<%--		;--%>
+<%--		if (option && typeof option === "object") {--%>
+<%--			myChart.setOption(option, true);--%>
+<%--		}--%>
+<%--	</script>--%>
 </body>
 </html>
