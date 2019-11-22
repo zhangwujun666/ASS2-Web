@@ -44,7 +44,7 @@
 <%--	</nav>--%>
 <%--	<p style="font-size: 25px; margin-top: 20px; margin-left: 45%;">有效交易统计</p>--%>
 	<div id="main" style="height:400px;"></div>
-	<h1>${result}</h1>
+	<p>${result}</p>
 	<%--<script type="text/javascript" src="js/echarts.min.js"></script>--%>
 	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 	<script src="js/jquery-1.11.2.min.js"></script>
@@ -66,7 +66,7 @@
                 // var goods_id = url.substring(i+1);
                 // var goods_id = '105';
                 $.ajax({
-                    url:'countDataAll.html',
+                    url:'jsonData.html',
                     type:'post',
                     async:'true',
                     // data:'goods_id='+ goods_id,

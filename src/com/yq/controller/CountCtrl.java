@@ -190,7 +190,7 @@ public class CountCtrl extends StringUtil {
 	 */
 	@RequestMapping(value = "/main/dcuTest.html")
 	public ModelAndView dcuTest(HttpSession session) {
-		String result = python();;
+		String result = python().toString();;
 		ModelAndView ml = new ModelAndView();
 		ml.addObject("result", result);
 		ml.setViewName("main/dcu/countAll");
@@ -198,11 +198,24 @@ public class CountCtrl extends StringUtil {
 	}
 
 	/**
+	 * Forecast
+	 */
+	@RequestMapping(value = "/main/forecast.html")
+	public ModelAndView forecast(HttpSession session) {
+		String result = python().toString();
+		ModelAndView ml = new ModelAndView();
+		ml.addObject("result", result);
+		ml.setViewName("main/dcu/forecast");
+		return ml;
+	}
+
+	/**
 	 * python执行类
 	 */
-	public String python() {
+	public JSONObject python() {
 		String test = "Test";
-		String result = "";
+//		String result = null;
+		String finalResult = null;
 		String dir = System.getProperty("user.dir");
 		String filePath = dir + "/test.py";
 		PythonInterpreter interpreter = new PythonInterpreter();
@@ -210,11 +223,15 @@ public class CountCtrl extends StringUtil {
 		interpreter.execfile(filePath);
 		PyFunction function = (PyFunction) interpreter.get("Test", PyFunction.class);
 		PyObject o = function.__call__(new PyString(test));
-		System.out.println("====================调用python脚本并读取结果为:" + o.toString() + "====================");
-		result = "Testing python file and get the result is :" + o.toString();
-		return result;
+//		System.out.println("====================调用python脚本并读取结果为:" + o.toString() + "====================");
+//		result = "Testing python file and get the result is :" + o.toString();
+//		result = o.toString();
+		finalResult = o.toString();
+		JSONObject jsonObject = JSONObject.fromObject(finalResult);
+//		String result = jsonObject.toString();
+//		result = result.substring(0,result.length()-1);
+		return jsonObject;
 	}
-
 	/**
 	 * Python数据处理累类
 	 * @return
@@ -240,6 +257,35 @@ public class CountCtrl extends StringUtil {
 		JSONObject jsonObject = JSONObject.fromObject(json);
 		String result = jsonObject.toString();
 		return result;
+	}
+
+	/**
+	 * JSON数据提供类
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/main/jsonData.html")
+	public Object jsonData() {
+//		List<Map<String, String>> list = countService.countDataAll();
+//		Map<String, String> data = new HashMap<>();
+//		List<Map<String, String>> res  = new ArrayList<>();
+//		for(int i = 0; i < list.size(); i++){
+//			data = list.get(i);
+//			String order_time = data.get("order_time");
+//			String count = String.valueOf(data.get("count"));
+//			Map<String, String> dataMap = new HashMap<>();
+//			dataMap.put("order_time", order_time);
+//			dataMap.put("count", count);
+//			res.add(dataMap);
+//		}
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("countData", res);
+		JSONObject data = python();
+		String json = new Gson().toJson(data);
+		JSONObject jsonObject = JSONObject.fromObject(json);
+		String result = jsonObject.toString();
+		String temp = data.toString();
+		return temp;
 	}
 }
 
