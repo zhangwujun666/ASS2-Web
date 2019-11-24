@@ -123,7 +123,8 @@
                                 {
                                     name:'Prediction',
                                     type:'line',
-                                    // stack: 'Total',
+                                    //
+									// : 'Total',
                                     data: prediction
                                 },
 								{
