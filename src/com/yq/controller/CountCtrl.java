@@ -4,11 +4,9 @@ import com.google.gson.Gson;
 import com.yq.entity.*;
 import com.yq.service.*;
 import com.yq.util.StringUtil;
+import jnr.ffi.Struct;
 import net.sf.json.JSONObject;
-import org.python.core.PyFunction;
-import org.python.core.PyInteger;
-import org.python.core.PyObject;
-import org.python.core.PyString;
+import org.python.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -201,8 +202,9 @@ public class CountCtrl extends StringUtil {
 	 * Forecast
 	 */
 	@RequestMapping(value = "/main/forecast.html")
-	public ModelAndView forecast(HttpSession session) {
-		String result = python().toString();
+	public ModelAndView forecast(HttpSession session) throws IOException, InterruptedException {
+//		String result = python().toString();
+		String result = cmd().toString();
 		ModelAndView ml = new ModelAndView();
 		ml.addObject("result", result);
 		ml.setViewName("main/dcu/forecast");
@@ -213,16 +215,45 @@ public class CountCtrl extends StringUtil {
 	 * python执行类
 	 */
 	public JSONObject python() {
-		String test = "Test";
-//		String result = null;
+
+		String test = "John";
+		String test1 = "1";
+		String test2 = "2";
+		String test3 = "3";
+
+		String county = "Wexford";
+		String from_date = "2008-01-01 01:00:00";
+		String to_date = "2009-01-01 01:00:00";
+		String feature = "temp";
+		Integer predict_days = 20;
+
+		Map<String, String> data = new HashMap<>();
+		data.put("county", county);
+		data.put("from_date", from_date);
+		data.put("to_date", to_date);
+		data.put("feature", feature);
+		data.put("Integer", predict_days.toString());
+
+		List<String> list  = new ArrayList<>();
+		list.add(county);
+		list.add(from_date);
+		list.add(to_date);
+		list.add(feature);
+		list.add(predict_days.toString());
+
+
+		String result = null;
+
 		String finalResult = null;
 		String dir = System.getProperty("user.dir");
-		String filePath = dir + "/test.py";
+		String filePath = dir + "/main.py";
 		PythonInterpreter interpreter = new PythonInterpreter();
 		interpreter = new PythonInterpreter();
 		interpreter.execfile(filePath);
-		PyFunction function = (PyFunction) interpreter.get("Test", PyFunction.class);
-		PyObject o = function.__call__(new PyString(test));
+		PyFunction function = (PyFunction) interpreter.get("Main", PyFunction.class);
+//		PyObject o = function.__call__((PyObject) list);
+		PyObject o = function.__call__(new PyString(county), new PyString(from_date), new PyString(to_date), new PyString(predict_days.toString()));
+		//TODO 添加预测类型参数
 //		System.out.println("====================调用python脚本并读取结果为:" + o.toString() + "====================");
 //		result = "Testing python file and get the result is :" + o.toString();
 //		result = o.toString();
@@ -265,7 +296,7 @@ public class CountCtrl extends StringUtil {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/main/jsonData.html")
-	public Object jsonData() {
+	public Object jsonData() throws IOException, InterruptedException {
 //		List<Map<String, String>> list = countService.countDataAll();
 //		Map<String, String> data = new HashMap<>();
 //		List<Map<String, String>> res  = new ArrayList<>();
@@ -280,12 +311,32 @@ public class CountCtrl extends StringUtil {
 //		}
 //		Map<String, Object> map = new HashMap<>();
 //		map.put("countData", res);
-		JSONObject data = python();
+//		JSONObject data = python();
+		JSONObject data = cmd();
 		String json = new Gson().toJson(data);
 		JSONObject jsonObject = JSONObject.fromObject(json);
 		String result = jsonObject.toString();
 		String temp = data.toString();
 		return temp;
+	}
+
+	/**
+	 * command results
+	 */
+	public JSONObject cmd() throws IOException, InterruptedException {
+		String[] arguments = new String[] { "python", "test3.py" };
+
+		Process process = Runtime.getRuntime().exec(arguments);
+		BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+		String line = in.readLine();
+//		while ((line = in.readLine()) != null) {
+			System.out.println("========================"+line);
+//		}
+		in.close();
+		int re = process.waitFor();
+		// System.out.println("========================" + re);
+		JSONObject jsonObject = JSONObject.fromObject(line);
+		return jsonObject;
 	}
 }
 

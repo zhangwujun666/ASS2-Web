@@ -45,7 +45,7 @@
 <%--	<p style="font-size: 25px; margin-top: 20px; margin-left: 45%;">有效交易统计</p>--%>
 	<div id="main" style="height:800px;"></div>
 <%--	<div id="container" style="height: 500px"></div>--%>
-<%--	<p>${result}</p>--%>
+	<p>${result}</p>
 	<script type="text/javascript" src="js/echarts.min.js"></script>
 	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
 	<script src="js/jquery-1.11.2.min.js"></script>
