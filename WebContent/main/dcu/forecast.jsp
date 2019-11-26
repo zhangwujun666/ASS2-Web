@@ -43,7 +43,7 @@
 <%--			class="Hui-iconfont">&#xe68f;</i></a>--%>
 <%--	</nav>--%>
 <%--	<p style="font-size: 25px; margin-top: 20px; margin-left: 45%;">有效交易统计</p>--%>
-	<div id="" style="margin-top: 10%; margin-left: 5%; height: 600px; float: left; width: 10%;">
+	<div id="" style="margin-top: 10%; margin-left: 5%; height: 800px; float: left; width: 10%;">
 		<div class="row cl">
 
 			<div class="formControls col-10">
@@ -91,7 +91,7 @@
 		</div>
 		<br><br>
 	</div>
-	<div id="main" style="height:800px;"></div>
+	<div id="main" style="margin-right: 1%; height: 800px; float: right; width: 80%;"></div>
 <%--	<div id="container" style="height: 500px"></div>--%>
 	<p>${result}</p>
 	<script type="text/javascript" src="js/echarts.min.js"></script>
@@ -114,7 +114,7 @@
 					[
 						'echarts',
 						'echarts/chart/line',
-						'echarts/chart/bar'   // 按需加载所需图表，如需动态类型切换功能，别忘了同时加载相应图表
+						'echarts/chart/bar'  
 					],
 					function (ec) {
 						var url = location.search;
