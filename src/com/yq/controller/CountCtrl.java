@@ -4,9 +4,9 @@ import com.google.gson.Gson;
 import com.yq.entity.*;
 import com.yq.service.*;
 import com.yq.util.StringUtil;
-import jnr.ffi.Struct;
+//import jnr.ffi.Struct;
 import net.sf.json.JSONObject;
-import org.python.core.*;
+//import org.python.core.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,7 +20,7 @@ import java.io.InputStreamReader;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.python.util.PythonInterpreter;
+//import org.python.util.PythonInterpreter;
 
 @Controller
 @RequestMapping
@@ -191,9 +191,9 @@ public class CountCtrl extends StringUtil {
 	 */
 	@RequestMapping(value = "/main/dcuTest.html")
 	public ModelAndView dcuTest(HttpSession session) {
-		String result = python().toString();;
+//		String result = python().toString();;
 		ModelAndView ml = new ModelAndView();
-		ml.addObject("result", result);
+//		ml.addObject("result", result);
 		ml.setViewName("main/dcu/countAll");
 		return ml;
 	}
@@ -204,9 +204,9 @@ public class CountCtrl extends StringUtil {
 	@RequestMapping(value = "/main/forecast.html")
 	public ModelAndView forecast(HttpSession session) throws IOException, InterruptedException {
 //		String result = python().toString();
-		String result = cmd().toString();
+//		String result = cmd().toString();
 		ModelAndView ml = new ModelAndView();
-		ml.addObject("result", result);
+//		ml.addObject("result", result);
 		ml.setViewName("main/dcu/forecast");
 		return ml;
 	}
@@ -214,55 +214,55 @@ public class CountCtrl extends StringUtil {
 	/**
 	 * python执行类
 	 */
-	public JSONObject python() {
-
-		String test = "John";
-		String test1 = "1";
-		String test2 = "2";
-		String test3 = "3";
-
-		String county = "Wexford";
-		String from_date = "2008-01-01 01:00:00";
-		String to_date = "2009-01-01 01:00:00";
-		String feature = "temp";
-		Integer predict_days = 20;
-
-		Map<String, String> data = new HashMap<>();
-		data.put("county", county);
-		data.put("from_date", from_date);
-		data.put("to_date", to_date);
-		data.put("feature", feature);
-		data.put("Integer", predict_days.toString());
-
-		List<String> list  = new ArrayList<>();
-		list.add(county);
-		list.add(from_date);
-		list.add(to_date);
-		list.add(feature);
-		list.add(predict_days.toString());
-
-
-		String result = null;
-
-		String finalResult = null;
-		String dir = System.getProperty("user.dir");
-		String filePath = dir + "/main.py";
-		PythonInterpreter interpreter = new PythonInterpreter();
-		interpreter = new PythonInterpreter();
-		interpreter.execfile(filePath);
-		PyFunction function = (PyFunction) interpreter.get("Main", PyFunction.class);
-//		PyObject o = function.__call__((PyObject) list);
-		PyObject o = function.__call__(new PyString(county), new PyString(from_date), new PyString(to_date), new PyString(predict_days.toString()));
-		//TODO 添加预测类型参数
-//		System.out.println("====================调用python脚本并读取结果为:" + o.toString() + "====================");
-//		result = "Testing python file and get the result is :" + o.toString();
-//		result = o.toString();
-		finalResult = o.toString();
-		JSONObject jsonObject = JSONObject.fromObject(finalResult);
-//		String result = jsonObject.toString();
-//		result = result.substring(0,result.length()-1);
-		return jsonObject;
-	}
+//	public JSONObject python() {
+//
+//		String test = "John";
+//		String test1 = "1";
+//		String test2 = "2";
+//		String test3 = "3";
+//
+//		String county = "Wexford";
+//		String from_date = "2008-01-01 01:00:00";
+//		String to_date = "2009-01-01 01:00:00";
+//		String feature = "temp";
+//		String predict_days = "20";
+//
+//		Map<String, String> data = new HashMap<>();
+//		data.put("county", county);
+//		data.put("from_date", from_date);
+//		data.put("to_date", to_date);
+//		data.put("feature", feature);
+//		data.put("Integer", predict_days.toString());
+//
+//		List<String> list  = new ArrayList<>();
+//		list.add(county);
+//		list.add(from_date);
+//		list.add(to_date);
+//		list.add(feature);
+//		list.add(predict_days.toString());
+//
+//
+//		String result = null;
+//
+//		String finalResult = null;
+//		String dir = System.getProperty("user.dir");
+//		String filePath = dir + "/main.py";
+//		PythonInterpreter interpreter = new PythonInterpreter();
+//		interpreter = new PythonInterpreter();
+//		interpreter.execfile(filePath);
+//		PyFunction function = (PyFunction) interpreter.get("Main", PyFunction.class);
+////		PyObject o = function.__call__((PyObject) list);
+//		PyObject o = function.__call__(new PyString(county), new PyString(from_date), new PyString(to_date), new PyString(predict_days.toString()));
+//		//TODO 添加预测类型参数
+////		System.out.println("====================调用python脚本并读取结果为:" + o.toString() + "====================");
+////		result = "Testing python file and get the result is :" + o.toString();
+////		result = o.toString();
+//		finalResult = o.toString();
+//		JSONObject jsonObject = JSONObject.fromObject(finalResult);
+////		String result = jsonObject.toString();
+////		result = result.substring(0,result.length()-1);
+//		return jsonObject;
+//	}
 	/**
 	 * Python数据处理累类
 	 * @return
@@ -296,7 +296,7 @@ public class CountCtrl extends StringUtil {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/main/jsonData.html")
-	public Object jsonData() throws IOException, InterruptedException {
+	public Object jsonData(String county, String from_time, String to_time, String feature, String predict_days) throws IOException, InterruptedException {
 //		List<Map<String, String>> list = countService.countDataAll();
 //		Map<String, String> data = new HashMap<>();
 //		List<Map<String, String>> res  = new ArrayList<>();
@@ -312,7 +312,7 @@ public class CountCtrl extends StringUtil {
 //		Map<String, Object> map = new HashMap<>();
 //		map.put("countData", res);
 //		JSONObject data = python();
-		JSONObject data = cmd();
+		JSONObject data = cmd(county, from_time, to_time, feature, predict_days);
 		String json = new Gson().toJson(data);
 		JSONObject jsonObject = JSONObject.fromObject(json);
 		String result = jsonObject.toString();
@@ -323,8 +323,8 @@ public class CountCtrl extends StringUtil {
 	/**
 	 * command results
 	 */
-	public JSONObject cmd() throws IOException, InterruptedException {
-		String[] arguments = new String[] { "python", "test3.py" };
+	public JSONObject cmd(String county, String from_time, String to_time, String feature, String predict_days) throws IOException, InterruptedException {
+		String[] arguments = new String[] { "python", "test3.py", county, from_time, to_time, feature, predict_days};
 
 		Process process = Runtime.getRuntime().exec(arguments);
 		BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
@@ -338,5 +338,6 @@ public class CountCtrl extends StringUtil {
 		JSONObject jsonObject = JSONObject.fromObject(line);
 		return jsonObject;
 	}
+
 }
 
