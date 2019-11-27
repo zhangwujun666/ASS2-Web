@@ -212,6 +212,19 @@ public class CountCtrl extends StringUtil {
 	}
 
 	/**
+	 * Index
+	 */
+	@RequestMapping(value = "/main/index.html")
+	public ModelAndView index(HttpSession session) {
+//		String result = python().toString();
+//		String result = cmd().toString();
+		ModelAndView ml = new ModelAndView();
+//		ml.addObject("result", result);
+		ml.setViewName("main/dcu/index");
+		return ml;
+	}
+
+	/**
 	 * python执行类
 	 */
 //	public JSONObject python() {
