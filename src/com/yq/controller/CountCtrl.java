@@ -216,6 +216,7 @@ public class CountCtrl extends StringUtil {
 	 */
 	@RequestMapping(value = "/main/index.html")
 	public ModelAndView index(HttpSession session) {
+//		String a = "";
 //		String result = python().toString();
 //		String result = cmd().toString();
 		ModelAndView ml = new ModelAndView();
@@ -260,7 +261,7 @@ public class CountCtrl extends StringUtil {
 //		String finalResult = null;
 //		String dir = System.getProperty("user.dir");
 //		String filePath = dir + "/main.py";
-//		PythonInterpreter interpreter = new PythonInterpreter();
+//		PythonInterpreter interpreter = new PythonInterpdreter();
 //		interpreter = new PythonInterpreter();
 //		interpreter.execfile(filePath);
 //		PyFunction function = (PyFunction) interpreter.get("Main", PyFunction.class);
