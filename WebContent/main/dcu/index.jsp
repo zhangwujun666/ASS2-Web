@@ -46,7 +46,6 @@
 <%--			href="javascript:location.replace(location.href);" title="刷新"><i--%>
 <%--			class="Hui-iconfont">&#xe68f;</i></a>--%>
 <%--	</nav>--%>
-<%--	<p style="font-size: 25px; margin-top: 20px; margin-left: 45%;">有效交易统计</p>--%>
 <div style="text-align: center;">
 	<h1>CA675 Cloud Technologies ASS2</h1>
 	<h2>Irish Weather Analysis with Spark</h2>

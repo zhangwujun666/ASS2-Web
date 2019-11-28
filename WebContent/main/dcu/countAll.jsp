@@ -47,6 +47,8 @@
 	<h1>${result}</h1>
 	<%--<script type="text/javascript" src="js/echarts.min.js"></script>--%>
 	<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
+	<script src="js/echarts.min.js"></script>
+	<script src="js/dark.js"></script>
 	<script src="js/jquery-1.11.2.min.js"></script>
 	<script type="text/javascript">
 		require.config({
@@ -127,7 +129,7 @@
                         });
                     }
                 })
-                var myChart = ec.init(document.getElementById('main'));
+                var myChart = ec.init(document.getElementById('main'),'dark');
                 myChart.showLoading();
             }
         );
