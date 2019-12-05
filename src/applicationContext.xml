@@ -18,9 +18,9 @@
 	<!-- 配置数据源 -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
 		  p:driverClassName="com.mysql.jdbc.Driver"
-		  p:url="jdbc:mysql://34.90.104.222:3306/dcu_test?characterEncoding=utf8"
+		  p:url="jdbc:mysql://34.74.174.240:3306/dcu_test?characterEncoding=utf8"
 		  p:username="root"
-		  p:password="Y79Rih*h">
+		  p:password="H-H9pc2T">
 
 		<!--p:url="jdbc:mysql://bdm287135462.my3w.com:3306/bdm287135462_db"-->
 		<!--p:username="bdm287135462"-->
