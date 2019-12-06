@@ -58,7 +58,7 @@
 				<div class="col-md-offset-1 col-md-11">
 					<h2 class="title">${indexList.info_list_head}</h2>
 				</div>
-				<a href="laptopList.html" target="_blank">
+				<a href="http://34.77.191.150:8080/demo/" target="_blank">
 					<div class="col-md-4 col-sm-4" style="margin-top: -40px;">
 						<div class="work-wrapper">
 							<i class="fa fa-laptop"></i>
@@ -69,7 +69,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="laptopList.html" target="_blank">
+				<a href="http://35.205.129.97:8080/TomcatTest/weather.jsp" target="_blank">
 					<div class="col-md-4 col-sm-4" style="margin-bottom: 40px; margin-top: -40px">
 						<div class="work-wrapper">
 							<i class="fa fa-laptop"></i>
@@ -92,7 +92,7 @@
 						</div>
 					</div>
 				</a>
-				<a href="laptopList.html" target="_blank">
+				<a href="http://35.205.129.97:8080/TomcatTest/" target="_blank">
 					<div class="col-md-4 col-sm-4">
 						<div class="work-wrapper">
 							<i class="fa fa-laptop"></i>
